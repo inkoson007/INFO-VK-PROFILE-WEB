@@ -64,6 +64,9 @@ $user_status = !empty($user['status']) ? $user['status'] : "Нет статус�
         <p>Количество подписчиков: <?php echo $followers_count; ?></p>
         <p>Пользовательский статус: <?php echo $user_status; ?></p>
         
+         <!-- Кнопки для просмотра друзей и подписчиков -->
+         <button onclick="window.location.href='friends.php?id=<?php echo $vk_id; ?>'">Просмотр друзей</button>
+        <button onclick="window.location.href='followers.php?id=<?php echo $vk_id; ?>'">Просмотр подписчиков</button>
     </div>
     <footer>Developer INK</footer>
 </body>
