@@ -1,0 +1,68 @@
+/* styles.css - Стили сайта */
+body { 
+    font-family: Arial, sans-serif; 
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #00ff00, #0000ff, #8a00ff); 
+    background-size: 400% 400%; 
+    animation: gradientAnimation 15s ease infinite; 
+    text-align: center; 
+    margin: 0; 
+    padding: 0; 
+    min-height: 100vh;
+    color: white; /* Белый текст */
+  }
+  @keyframes gradientAnimation { 
+    0% { background-position: 0% 50%; } 
+    50% { background-position: 100% 50%; } 
+    100% { background-position: 0% 50%; } 
+  }
+  .container { 
+    width: 300px; 
+    background: rgba(0, 0, 0, 0.8); 
+    padding: 15px; 
+    margin: 50px auto; 
+    border-radius: 10px; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); 
+  }
+  .friend { 
+    margin-bottom: 10px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+  }
+  .avatar { 
+    width: 50px; 
+    height: 50px; 
+    border-radius: 50%; 
+    margin-right: 10px; 
+  }
+  .friend-info { 
+    text-align: left; 
+    font-size: 14px; 
+  }
+  footer { 
+    position: fixed; 
+    bottom: 10px; 
+    width: 100%; 
+    text-align: center; 
+    font-size: 12px; 
+    color: white; 
+    background-color: rgba(0, 0, 0, 0.5); 
+    padding: 5px 0; 
+  }
+  footer a { color: #fffb00; text-decoration: none; }
+  /* Кастомизация полоски прокрутки для WebKit-браузеров */
+::-webkit-scrollbar {
+    width: 8px; /* Ширина вертикальной полосы прокрутки */
+    height: 8px; /* Высота горизонтальной полосы прокрутки */
+}
+
+/* Цвет самой полосы прокрутки */
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный */
+    border-radius: 10px; /* Округлые края */
+}
+
+/* Цвет фона полосы прокрутки */
+::-webkit-scrollbar-track {
+    background: transparent; /* Прозрачный фон */
+}
