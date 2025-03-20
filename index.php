@@ -9,6 +9,7 @@
     <title>VK Шпион</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="container">
         <h1>VK Шпион</h1>
@@ -18,9 +19,8 @@
     </div>
    
     <div class="container">
-    <h1>Обновление V0.2</h1>
-    <p>Добавили просмотр друзей</p>
-    <p>Добавили просмотр подписчиков</p>
+    <h1>Обновление V0.3</h1>
+    <p>Добавили просмотр онлайна друзей и подписчиков</p>
     </div>
     
     <script>

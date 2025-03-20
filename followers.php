@@ -1,13 +1,13 @@
 <?php
-// followers.php - Список подписчиков
+// followers.php - Список подписчиков с онлайном и последним визитом
 if (!isset($_GET['id'])) {
     die("Не указан ID пользователя.");
 }
 $vk_id = htmlspecialchars($_GET['id']);
 $token = ''; // Вставьте ваш токен ВК API
 
-// Получаем список подписчиков с дополнительной информацией (имена, фамилии, аватарки)
-$api_url = "https://api.vk.com/method/users.getFollowers?user_id=$vk_id&fields=first_name,last_name,photo_50&access_token=$token&v=5.131";
+// Получаем список подписчиков с доп. информацией
+$api_url = "https://api.vk.com/method/users.getFollowers?user_id=$vk_id&fields=first_name,last_name,photo_50,last_seen,online&access_token=$token&v=5.131";
 $response = json_decode(file_get_contents($api_url), true);
 
 if (!isset($response['response'])) {
@@ -16,6 +16,10 @@ if (!isset($response['response'])) {
 
 $followers = $response['response']['items'];
 
+function formatLastSeen($last_seen) {
+    if (!isset($last_seen['time'])) return 'Нет данных';
+    return date('d.m.Y H:i', $last_seen['time']);
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -35,6 +39,9 @@ $followers = $response['response']['items'];
                     <a href="https://vk.com/id<?php echo $follower['id']; ?>" target="_blank">
                         <?php echo $follower['first_name'] . ' ' . $follower['last_name']; ?>
                     </a>
+                    <span>
+                        <?php echo $follower['online'] ? '🟢 В сети' : '⚫ Был(а): ' . formatLastSeen($follower['last_seen']); ?>
+                    </span>
                 </li>
             <?php endforeach; ?>
         </ul>

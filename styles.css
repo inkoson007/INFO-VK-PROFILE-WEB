@@ -72,3 +72,12 @@ ul {
   padding: 0;
   margin: 0;
 }
+
+a {
+  color: white; /* Белый цвет текста */
+  text-decoration: none; /* Убирает подчеркивание */
+}
+
+a:hover {
+  color: #ddd; /* Светло-серый цвет при наведении */
+}
