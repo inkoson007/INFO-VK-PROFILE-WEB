@@ -3,8 +3,12 @@
 if (!isset($_GET['id'])) {
     die("Не указан ID пользователя.");
 }
+
+// Подключаем конфиг
+$config = include('config.php');
+
 $vk_id = htmlspecialchars($_GET['id']);
-$token = ''; // Вставьте ваш токен ВК API
+$token = $config['token'];
 
 // Получаем список подписчиков с доп. информацией
 $api_url = "https://api.vk.com/method/users.getFollowers?user_id=$vk_id&fields=first_name,last_name,photo_50,last_seen,online&access_token=$token&v=5.131";
@@ -37,7 +41,7 @@ function formatLastSeen($last_seen) {
                 <li>
                     <img src="<?php echo $follower['photo_50']; ?>" alt="Аватарка" width="50" height="50">
                     <a href="https://vk.com/id<?php echo $follower['id']; ?>" target="_blank">
-                        <?php echo $follower['first_name'] . ' ' . $follower['last_name']; ?>
+                        <?php echo $follower['first_name'] . ' ' . $follower['last_name']; ?> [<?php echo $follower['id']; ?>]
                     </a>
                     <span>
                         <?php echo $follower['online'] ? '🟢 В сети' : '⚫ Был(а): ' . formatLastSeen($follower['last_seen']); ?>

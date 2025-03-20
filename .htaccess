@@ -1,0 +1,5 @@
+ErrorDocument 400 /error.php?message=Ошибка%20400:%20Некорректный%20запрос
+ErrorDocument 401 /error.php?message=Ошибка%20401:%20Не%20авторизован
+ErrorDocument 403 /error.php?message=Ошибка%20403:%20Доступ%20запрещен
+ErrorDocument 404 /error.php?message=Ошибка%20404:%20Страница%20не%20найдена
+ErrorDocument 500 /error.php?message=Ошибка%20500:%20Внутренняя%20ошибка%20сервера

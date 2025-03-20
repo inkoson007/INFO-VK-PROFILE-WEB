@@ -13,14 +13,17 @@
 <body>
     <div class="container">
         <h1>VK Шпион</h1>
-        <p>Введите ID или ссылку на профиль ВКонтакте:</p>
-        <input type="text" id="vk_id" placeholder="ID или ссылка">
+        <p>Введите ID на профиль ВКонтакте:</p>
+        <input type="text" id="vk_id" placeholder="ID">
         <button onclick="searchProfile()">Поиск</button>
     </div>
    
     <div class="container">
-    <h1>Обновление V0.3</h1>
-    <p>Добавили просмотр онлайна друзей и подписчиков</p>
+    <h1>Обновление V0.4</h1>
+    <p>Теперь токен только в конфиге</p>
+    <p>Страница ошибок</p>
+    <p>Страница отладочной информации</p>
+    <p>Закругление аватарок и улучшение css</p>
     </div>
     
     <script>

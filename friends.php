@@ -3,8 +3,12 @@
 if (!isset($_GET['id'])) {
     die("Не указан ID пользователя.");
 }
+
+// Подключаем конфиг
+$config = include('config.php');
+
 $vk_id = htmlspecialchars($_GET['id']);
-$token = ''; // Вставьте ваш токен ВК API
+$token = $config['token'];
 
 // Получаем список друзей с дополнительной информацией
 $api_url_friends = "https://api.vk.com/method/friends.get?user_id=$vk_id&fields=photo_50,last_seen,online&access_token=$token&v=5.131";
@@ -37,7 +41,7 @@ function formatLastSeen($last_seen) {
                 <li>
                     <img src="<?php echo $friend['photo_50']; ?>" alt="Аватарка" width="50" height="50">
                     <a href="https://vk.com/id<?php echo $friend['id']; ?>" target="_blank">
-                        <?php echo $friend['first_name'] . ' ' . $friend['last_name']; ?>
+                        <?php echo $friend['first_name'] . ' ' . $friend['last_name']; ?> [<?php echo $friend['id']; ?>]
                     </a>
                     <span>
                         <?php echo $friend['online'] ? '🟢 В сети' : '⚫ Был(а): ' . formatLastSeen($friend['last_seen']); ?>

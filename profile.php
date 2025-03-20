@@ -3,8 +3,12 @@
 if (!isset($_GET['id'])) {
     die("Не указан ID пользователя.");
 }
+
+// Подключаем конфиг
+$config = include('config.php');
+
 $vk_id = htmlspecialchars($_GET['id']);
-$token = ''; // Вставьте ваш токен ВК API
+$token = $config['token'];
 $api_url = "https://api.vk.com/method/users.get?user_ids=$vk_id&fields=photo_200,city,bdate,counters,last_seen,online,status&access_token=$token&v=5.131";
 $response = json_decode(file_get_contents($api_url), true);
 
@@ -67,7 +71,7 @@ $user_status = !empty($user['status']) ? $user['status'] : "Нет статус�
       <!-- Кнопки для просмотра друзей и подписчиков -->
     <button onclick="window.location.href='friends.php?id=<?php echo $vk_id; ?>'">Просмотр друзей</button>
     <button onclick="window.location.href='followers.php?id=<?php echo $vk_id; ?>'">Просмотр подписчиков</button>
-    </div>
+</div>
     <footer>Developer INK</footer>
 </body>
 </html>
