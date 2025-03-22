@@ -105,3 +105,39 @@ img {
   border-radius: 50%;
   object-fit: cover; /* Обрезает и центрирует фото */
 }
+
+button {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 25px; /* Овальная форма */
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #333; /* Серый при наведении */
+}
+
+input[type="text"] {
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 25px; /* Овальная форма */
+  padding: 10px 15px;
+  font-size: 16px;
+  outline: none;
+  width: 200px; /* Можно изменить под нужный размер */
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]::placeholder {
+  color: #aaa; /* Серый цвет плейсхолдера */
+}
+
+input[type="text"]:focus {
+  background-color: #222;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}

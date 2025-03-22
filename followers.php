@@ -41,8 +41,8 @@ function formatLastSeen($last_seen) {
                 <li>
                     <img src="<?php echo $follower['photo_50']; ?>" alt="Аватарка" width="50" height="50">
                     <a href="https://vk.com/id<?php echo $follower['id']; ?>" target="_blank">
-                        <?php echo $follower['first_name'] . ' ' . $follower['last_name']; ?> [<?php echo $follower['id']; ?>]
-                    </a>
+                        <?php echo $follower['first_name'] . ' ' . $follower['last_name']; ?>
+                    </a> [<?php echo $follower['id']; ?>]
                     <span>
                         <?php echo $follower['online'] ? '🟢 В сети' : '⚫ Был(а): ' . formatLastSeen($follower['last_seen']); ?>
                     </span>

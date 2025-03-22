@@ -32,7 +32,7 @@ $platforms = [
 ];
 $platform_text = $platforms[$platform_id] ?? "Неизвестное устройство";
 
-$online_text = $is_online ? "В сети" : "Офлайн";
+$online_text = $is_online ? "🟢 В сети" : "⚫ Офлайн";
 $time_ago = $last_seen_time ? time() - $last_seen_time : null;
 $last_seen_formatted = $last_seen_time ? date("d.m.Y H:i", $last_seen_time) : "Неизвестно";
 $time_ago_text = $time_ago ? gmdate("H часов i минут", $time_ago) . " назад" : "Неизвестно";
@@ -71,6 +71,7 @@ $user_status = !empty($user['status']) ? $user['status'] : "Нет статус�
       <!-- Кнопки для просмотра друзей и подписчиков -->
     <button onclick="window.location.href='friends.php?id=<?php echo $vk_id; ?>'">Просмотр друзей</button>
     <button onclick="window.location.href='followers.php?id=<?php echo $vk_id; ?>'">Просмотр подписчиков</button>
+    <button onclick="window.location.href='likes_from_users.php?id=<?php echo $vk_id; ?>'">Статистика лайков</button>
 </div>
     <footer>Developer INK</footer>
 </body>
