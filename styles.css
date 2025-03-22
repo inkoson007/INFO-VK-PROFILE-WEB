@@ -141,3 +141,13 @@ input[type="text"]:focus {
   background-color: #222;
   box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
 }
+
+button, input[type="text"] {
+  display: block;
+  margin: 10px auto;
+  padding: 12px 20px;
+}
+
+button {
+  margin-top: 15px;
+}
