@@ -40,7 +40,7 @@ function formatLastSeen($last_seen) {
             <?php foreach ($friends_data as $friend): ?>
                 <li>
                     <img src="<?php echo $friend['photo_50']; ?>" alt="Аватарка" width="50" height="50">
-                    <a href="https://vk.com/id<?php echo $friend['id']; ?>" target="_blank">
+                    <a href="profile.php?id=<?php echo $friend['id']; ?>">
                         <?php echo $friend['first_name'] . ' ' . $friend['last_name']; ?>
                     </a> [<?php echo $friend['id']; ?>]
                     <span>

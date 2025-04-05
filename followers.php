@@ -40,7 +40,7 @@ function formatLastSeen($last_seen) {
             <?php foreach ($followers as $follower): ?>
                 <li>
                     <img src="<?php echo $follower['photo_50']; ?>" alt="Аватарка" width="50" height="50">
-                    <a href="https://vk.com/id<?php echo $follower['id']; ?>" target="_blank">
+                    <a href="profile.php?id=<?php echo $follower['id']; ?>">
                         <?php echo $follower['first_name'] . ' ' . $follower['last_name']; ?>
                     </a> [<?php echo $follower['id']; ?>]
                     <span>

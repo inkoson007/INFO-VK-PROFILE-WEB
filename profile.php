@@ -41,6 +41,11 @@ $time_ago_text = $time_ago ? gmdate("H часов i минут", $time_ago) . " 
 $friends_count = $user['counters']['friends'] ?? 0;
 $followers_count = $user['counters']['followers'] ?? 0;
 
+// Получение количества подарков
+$gifts_url = "https://api.vk.com/method/gifts.get?user_id=$vk_id&access_token=$token&v=5.131";
+$gifts_response = json_decode(file_get_contents($gifts_url), true);
+$gifts_count = isset($gifts_response['response']['count']) ? $gifts_response['response']['count'] : 0;
+
 // Пользовательский статус
 $user_status = !empty($user['status']) ? $user['status'] : "Нет статуса";
 ?>
@@ -66,12 +71,15 @@ $user_status = !empty($user['status']) ? $user['status'] : "Нет статус�
         <?php endif; ?>
         <p>Количество друзей: <?php echo $friends_count; ?></p>
         <p>Количество подписчиков: <?php echo $followers_count; ?></p>
+        <p>Количество подарков: <?php echo $gifts_count; ?></p>
         <p>Пользовательский статус: <?php echo $user_status; ?></p>
         
       <!-- Кнопки для просмотра друзей и подписчиков -->
     <button onclick="window.location.href='friends.php?id=<?php echo $vk_id; ?>'">Просмотр друзей</button>
     <button onclick="window.location.href='followers.php?id=<?php echo $vk_id; ?>'">Просмотр подписчиков</button>
     <button onclick="window.location.href='likes_from_users.php?id=<?php echo $vk_id; ?>'">Статистика лайков</button>
+    <button onclick="window.location.href='possibly_chatted.php?id=<?php echo $vk_id; ?>'">Возможно общался(ется)</button>
+    <button onclick="window.location.href='https://vk.com/id<?php echo $vk_id; ?>'">Профиль VK</button>
 </div>
     <footer>Developer INK</footer>
 </body>
