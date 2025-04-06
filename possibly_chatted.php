@@ -41,10 +41,17 @@ foreach ($friends as $friend) {
             $possibly_chatted[] = $friend;
         }
     } else {
-        // Пользователь оффлайн — ищем друзей, которые были онлайн в пределах +5 минут после его выхода
+        // Пользователь оффлайн — ищем друзей, которые были онлайн в пределах после его выхода
         if (!$friend['online'] && isset($friend['last_seen']['time'])) {
             $friend_last_seen = $friend['last_seen']['time'];
-            if ($friend_last_seen >= $user_last_seen && $friend_last_seen <= $user_last_seen + 300) {
+        
+            // Был онлайн в пределах 5 минут после выхода пользователя
+            $afterExit = $friend_last_seen >= $user_last_seen && $friend_last_seen <= $user_last_seen + 300;
+        
+            // Был онлайн в пределах 5 минут до выхода пользователя
+            $beforeExit = $friend_last_seen >= $user_last_seen - 300 && $friend_last_seen <= $user_last_seen;
+        
+            if ($afterExit || $beforeExit) {
                 $possibly_chatted[] = $friend;
             }
         }
