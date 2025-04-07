@@ -13,6 +13,33 @@ if (!isset($response['response'])) {
 
 $owner = $response['response'][0];
 
+// Системная информация
+$os_info = php_uname(); // ОС
+$php_version = phpversion();
+$server_time = date("d.m.Y H:i:s");
+
+// IP-адрес сервера
+$server_ip = getHostByName(getHostName());
+
+// Аптайм (для Unix-подобных ОС)
+$uptime = shell_exec("uptime -p") ?? 'Недоступно';
+
+// Использование памяти
+$meminfo = @file_get_contents("/proc/meminfo");
+$memory_usage = 'Недоступно';
+if ($meminfo) {
+    preg_match("/MemTotal:\s+(\d+)/", $meminfo, $total);
+    preg_match("/MemAvailable:\s+(\d+)/", $meminfo, $available);
+    if (isset($total[1], $available[1])) {
+        $used = $total[1] - $available[1];
+        $memory_usage = round(($used / $total[1]) * 100, 2) . '%';
+    }
+}
+
+// Использование CPU
+$load = sys_getloadavg();
+$cpu_usage = $load[0] . ' (за 1 мин)';
+
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -30,6 +57,17 @@ $owner = $response['response'][0];
             <p><strong>ID:</strong> <?php echo $owner['id']; ?></p>
             <p><strong>Статус:</strong> <?php echo $owner['online'] ? '🟢 В сети' : '⚫ Не в сети'; ?></p>
             <p><strong>Токен:</strong> <span style="color:green;">Действителен ✅</span></p>
+        </div>
+
+        <h2>Системная информация</h2>
+        <div class="system-info">
+            <p><strong>ОС сервера:</strong> <?php echo $os_info; ?></p>
+            <p><strong>Версия PHP:</strong> <?php echo $php_version; ?></p>
+            <p><strong>Текущее серверное время:</strong> <?php echo $server_time; ?></p>
+            <p><strong>IP-адрес сервера:</strong> <?php echo $server_ip; ?></p>
+            <p><strong>Аптайм:</strong> <?php echo htmlspecialchars($uptime); ?></p>
+            <p><strong>Использование памяти:</strong> <?php echo $memory_usage; ?></p>
+            <p><strong>Загрузка CPU:</strong> <?php echo $cpu_usage; ?></p>
         </div>
     </div>
     <footer>Developer INK</footer>

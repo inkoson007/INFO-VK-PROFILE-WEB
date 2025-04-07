@@ -68,7 +68,7 @@ foreach ($friends as $friend) {
 </head>
 <body>
     <div class="container">
-        <h1>Возможно общался(ется)</h1>
+        <h1><?php echo $user_online ? 'Возможно общается' : 'Возможно общался'; ?></h1>
         <p>Пользователь: <?php echo $user['first_name'] . ' ' . $user['last_name']; ?> [<?php echo $vk_id; ?>]</p>
         <p>Сейчас: <?php echo $user_online ? '🟢 В сети' : '⚫ Был(а): ' . formatLastSeen($user_last_seen); ?></p>
 

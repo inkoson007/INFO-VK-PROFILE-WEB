@@ -48,6 +48,19 @@ $gifts_count = isset($gifts_response['response']['count']) ? $gifts_response['re
 
 // Пользовательский статус
 $user_status = !empty($user['status']) ? $user['status'] : "Нет статуса";
+
+// Возраст рядом с датой рождения
+$bdate = $user['bdate'] ?? null;
+$birth_with_age = "Не указана";
+
+if ($bdate && preg_match('/^\d{1,2}\.\d{1,2}\.\d{4}$/', $bdate)) {
+    $birthDate = DateTime::createFromFormat('d.m.Y', $bdate);
+    $today = new DateTime('today');
+    $age = $birthDate->diff($today)->y;
+    $birth_with_age = $bdate . " [{$age} лет]";
+} elseif ($bdate) {
+    $birth_with_age = $bdate . " [Год не указан]";
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -62,7 +75,7 @@ $user_status = !empty($user['status']) ? $user['status'] : "Нет статус�
         <img src="<?php echo $user['photo_200']; ?>" alt="Аватар">
         <h2><?php echo $user['first_name'] . ' ' . $user['last_name']; ?></h2>
         <p>Город: <?php echo $user['city']['title'] ?? 'Не указан'; ?></p>
-        <p>Дата рождения: <?php echo $user['bdate'] ?? 'Не указана'; ?></p>
+        <p>Дата рождения: <?php echo $birth_with_age; ?></p>
         <p>Статус: <?php echo $online_text; ?></p>
         <?php if (!$is_online): ?>
             <p>Последний онлайн: <?php echo $last_seen_formatted; ?></p>
@@ -73,14 +86,14 @@ $user_status = !empty($user['status']) ? $user['status'] : "Нет статус�
         <p>Количество подписчиков: <?php echo $followers_count; ?></p>
         <p>Количество подарков: <?php echo $gifts_count; ?></p>
         <p>Пользовательский статус: <?php echo $user_status; ?></p>
-        
-      <!-- Кнопки для просмотра друзей и подписчиков -->
-    <button onclick="window.location.href='friends.php?id=<?php echo $vk_id; ?>'">Просмотр друзей</button>
-    <button onclick="window.location.href='followers.php?id=<?php echo $vk_id; ?>'">Просмотр подписчиков</button>
-    <button onclick="window.location.href='likes_from_users.php?id=<?php echo $vk_id; ?>'">Статистика лайков</button>
-    <button onclick="window.location.href='possibly_chatted.php?id=<?php echo $vk_id; ?>'">Возможно общался(ется)</button>
-    <button onclick="window.location.href='https://vk.com/id<?php echo $vk_id; ?>'">Профиль VK</button>
-</div>
+
+        <!-- Кнопки для перехода -->
+        <button onclick="window.location.href='friends.php?id=<?php echo $vk_id; ?>'">Просмотр друзей</button>
+        <button onclick="window.location.href='followers.php?id=<?php echo $vk_id; ?>'">Просмотр подписчиков</button>
+        <button onclick="window.location.href='likes_from_users.php?id=<?php echo $vk_id; ?>'">Статистика лайков</button>
+        <button onclick="window.location.href='possibly_chatted.php?id=<?php echo $vk_id; ?>'">Возможно общался(ется)</button>
+        <button onclick="window.location.href='https://vk.com/id<?php echo $vk_id; ?>'">Профиль VK</button>
+    </div>
     <footer>Developer INK</footer>
 </body>
 </html>
