@@ -16,15 +16,14 @@
         <p>Введите ID на профиль ВКонтакте:</p>
         <input type="text" id="vk_id" placeholder="ID">
         <button onclick="searchProfile()">Поиск</button>
+        <button onclick="window.location.href='https://regvk.com/id/'">Узнать ID пользователя</button>
     </div>
    
     <div class="container">
-    <h1>Обновление <span class="rainbow-text">V0.7</span></h1>
+    <h1>Обновление <span class="rainbow-text">V0.7.1</span></h1>
     <div class="update-block">
         <ul>
-            <li>Добавлен возраст пользователя в профиле</li>
-            <li>Добавили больше информации в debug</li>
-            <li>Небольшие изменения в CSS</li>
+            <li>Небольшие изменения и улучшения</li>
         </ul>
     </div>
 </div>

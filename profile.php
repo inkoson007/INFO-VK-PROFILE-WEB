@@ -91,7 +91,7 @@ if ($bdate && preg_match('/^\d{1,2}\.\d{1,2}\.\d{4}$/', $bdate)) {
         <button onclick="window.location.href='friends.php?id=<?php echo $vk_id; ?>'">Просмотр друзей</button>
         <button onclick="window.location.href='followers.php?id=<?php echo $vk_id; ?>'">Просмотр подписчиков</button>
         <button onclick="window.location.href='likes_from_users.php?id=<?php echo $vk_id; ?>'">Статистика лайков</button>
-        <button onclick="window.location.href='possibly_chatted.php?id=<?php echo $vk_id; ?>'">Возможно общался(ется)</button>
+        <button onclick="window.location.href='possibly_chatted.php?id=<?php echo $vk_id; ?>'">Возможное общение</button>
         <button onclick="window.location.href='https://vk.com/id<?php echo $vk_id; ?>'">Профиль VK</button>
     </div>
     <footer>Developer INK</footer>
