@@ -9,7 +9,7 @@ $config = include('config.php');
 
 $vk_id = htmlspecialchars($_GET['id']);
 $token = $config['token'];
-$api_url = "https://api.vk.com/method/users.get?user_ids=$vk_id&fields=photo_200,city,bdate,counters,last_seen,online,status&access_token=$token&v=5.131";
+$api_url = "https://api.vk.com/method/users.get?user_ids=$vk_id&fields=photo_200,city,bdate,counters,last_seen,online,status,sex&access_token=$token&v=5.131";
 $response = json_decode(file_get_contents($api_url), true);
 
 if (!isset($response['response'][0])) {
@@ -36,6 +36,9 @@ $online_text = $is_online ? "🟢 В сети" : "⚫ Офлайн";
 $time_ago = $last_seen_time ? time() - $last_seen_time : null;
 $last_seen_formatted = $last_seen_time ? date("d.m.Y H:i", $last_seen_time) : "Неизвестно";
 $time_ago_text = $time_ago ? gmdate("H часов i минут", $time_ago) . " назад" : "Неизвестно";
+
+$sex_map = [0 => 'Не указан', 1 => 'Женский', 2 => 'Мужской'];
+$user_sex = $sex_map[$user['sex']] ?? 'Неизвестно';
 
 // Количество друзей и подписчиков
 $friends_count = $user['counters']['friends'] ?? 0;
@@ -69,11 +72,13 @@ if ($bdate && preg_match('/^\d{1,2}\.\d{1,2}\.\d{4}$/', $bdate)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Профиль <?php echo $user['first_name'] . ' ' . $user['last_name']; ?></title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="img/logo.png" type="image/png">
 </head>
 <body>
     <div class="container">
         <img src="<?php echo $user['photo_200']; ?>" alt="Аватар">
         <h2><?php echo $user['first_name'] . ' ' . $user['last_name']; ?></h2>
+        <p>Пол: <?php echo $user_sex; ?></p>
         <p>Город: <?php echo $user['city']['title'] ?? 'Не указан'; ?></p>
         <p>Дата рождения: <?php echo $birth_with_age; ?></p>
         <p>Статус: <?php echo $online_text; ?></p>

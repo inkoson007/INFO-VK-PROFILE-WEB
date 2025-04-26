@@ -65,12 +65,21 @@ foreach ($friends as $friend) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Возможные собеседники</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="img/logo.png" type="image/png">
 </head>
 <body>
     <div class="container">
         <h1><?php echo $user_online ? 'Возможно общается' : 'Возможно общался'; ?></h1>
         <p>Пользователь: <?php echo $user['first_name'] . ' ' . $user['last_name']; ?> [<?php echo $vk_id; ?>]</p>
-        <p>Сейчас: <?php echo $user_online ? '🟢 В сети' : '⚫ Был(а): ' . formatLastSeen($user_last_seen); ?></p>
+        <p>Сейчас: 
+            <?php 
+                if ($user_online) {
+                    echo '🟢 В сети';
+                } else {
+                    echo '⚫ Был(а): <span style="color:gray;">' . formatLastSeen($user_last_seen) . '</span>';
+                }
+            ?>
+        </p>
 
         <h2>Возможные собеседники:</h2>
         <?php if (count($possibly_chatted) === 0): ?>
@@ -88,7 +97,19 @@ foreach ($friends as $friend) {
                                 if ($friend['online']) {
                                     echo '🟢 Сейчас в сети';
                                 } else {
-                                    echo '⚫ Был(а): ' . formatLastSeen($friend['last_seen']['time']);
+                                    $friend_last = $friend['last_seen']['time'];
+                                    $diff = abs($friend_last - $user_last_seen);
+                                    $color = 'gray';
+
+                                    if ($diff <= 60) {
+                                        $color = 'green';
+                                    } elseif ($diff <= 180) {
+                                        $color = 'yellow';
+                                    } elseif ($diff <= 300) {
+                                        $color = 'red';
+                                    }
+
+                                    echo '⚫ Был(а): <span style="color:' . $color . ';">' . formatLastSeen($friend_last) . '</span>';
                                 }
                             ?>
                         </span>

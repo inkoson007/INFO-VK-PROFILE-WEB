@@ -8,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VK Шпион</title>
     <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="img/logo.png" type="image/png">
 </head>
 
 <body>
@@ -20,10 +21,13 @@
     </div>
    
     <div class="container">
-    <h1>Обновление <span class="rainbow-text">V0.7.1</span></h1>
+    <h1>Обновление <span class="rainbow-text">V0.8</span></h1>
     <div class="update-block">
         <ul>
-            <li>Небольшие изменения и улучшения</li>
+            <li>Добавлена иконка сайта</li>
+            <li>Добавлена информация о поле пользователя</li>
+            <li>Цвет в возможных людей с которыми общался пользователь</li>
+            <li>Чёрный цвет выделения текста</li>
         </ul>
     </div>
 </div>
