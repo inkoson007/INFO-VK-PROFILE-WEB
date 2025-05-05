@@ -30,7 +30,7 @@ function formatLastSeen($last_seen) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1.1.1">
     <link rel="icon" href="img/logo.png" type="image/png">
     <title>Друзья</title>
 </head>
@@ -40,7 +40,11 @@ function formatLastSeen($last_seen) {
         <ul>
             <?php foreach ($friends_data as $friend): ?>
                 <li>
-                    <img src="<?php echo $friend['photo_50']; ?>" alt="Аватарка" width="50" height="50">
+                <img src="<?php echo $friend['photo_50']; ?>" 
+                 alt="Аватарка" 
+                 width="50" 
+                 height="50"
+                 class="<?php echo $friend['online'] ? 'online-avatar' : 'offline-avatar'; ?>">
                     <a href="profile.php?id=<?php echo $friend['id']; ?>">
                         <?php echo $friend['first_name'] . ' ' . $friend['last_name']; ?>
                     </a> [<?php echo $friend['id']; ?>]

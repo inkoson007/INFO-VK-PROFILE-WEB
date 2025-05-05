@@ -30,7 +30,7 @@ function formatLastSeen($last_seen) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1.1.1">
     <link rel="icon" href="img/logo.png" type="image/png">
     <title>Подписчики</title>
 </head>
@@ -40,7 +40,11 @@ function formatLastSeen($last_seen) {
         <ul>
             <?php foreach ($followers as $follower): ?>
                 <li>
-                    <img src="<?php echo $follower['photo_50']; ?>" alt="Аватарка" width="50" height="50">
+                <img src="<?php echo $follower['photo_50']; ?>" 
+                     alt="Аватарка" 
+                      width="50" 
+                     height="50"
+                     class="<?php echo $follower['online'] ? 'online-avatar' : 'offline-avatar'; ?>">
                     <a href="profile.php?id=<?php echo $follower['id']; ?>">
                         <?php echo $follower['first_name'] . ' ' . $follower['last_name']; ?>
                     </a> [<?php echo $follower['id']; ?>]

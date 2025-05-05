@@ -64,7 +64,7 @@ foreach ($friends as $friend) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Возможные собеседники</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1.1.1">
     <link rel="icon" href="img/logo.png" type="image/png">
 </head>
 <body>
@@ -88,7 +88,11 @@ foreach ($friends as $friend) {
             <ul>
                 <?php foreach ($possibly_chatted as $friend): ?>
                     <li>
-                        <img src="<?php echo $friend['photo_50']; ?>" alt="Аватар" width="50" height="50">
+                    <img src="<?php echo $friend['photo_50']; ?>" 
+                      alt="Аватарка" 
+                      width="50" 
+                      height="50"
+                      class="<?php echo $friend['online'] ? 'online-avatar' : 'offline-avatar'; ?>">
                         <a href="profile.php?id=<?php echo $friend['id']; ?>">
                             <?php echo $friend['first_name'] . ' ' . $friend['last_name']; ?>
                         </a> [<?php echo $friend['id']; ?>]

@@ -11,7 +11,7 @@ $vk_id = htmlspecialchars($_GET['id']);
 $token = $config['token'];
 
 // Получаем информацию о пользователе
-$user_url = "https://api.vk.com/method/users.get?user_ids=$vk_id&fields=first_name,last_name,photo_200&access_token=$token&v=5.131";
+$user_url = "https://api.vk.com/method/users.get?user_ids=$vk_id&fields=first_name,last_name,photo_200,online&access_token=$token&v=5.131";
 $user_response = json_decode(file_get_contents($user_url), true);
 
 if (!isset($user_response['response'][0])) {
@@ -66,18 +66,21 @@ foreach ([$wall_likes, $photo_likes] as $likes_list) {
 }
 
 // Получаем информацию о людях, которые ставили лайки
-$user_ids = implode(',', array_keys($total_likes));
-$likers_url = "https://api.vk.com/method/users.get?user_ids=$user_ids&fields=first_name,last_name,photo_50&access_token=$token&v=5.131";
-$likers_response = json_decode(file_get_contents($likers_url), true);
-$likers_data = $likers_response['response'] ?? [];
-
+if (!empty($total_likes)) {
+    $user_ids = implode(',', array_keys($total_likes));
+    $likers_url = "https://api.vk.com/method/users.get?user_ids=$user_ids&fields=first_name,last_name,photo_50,online&access_token=$token&v=5.131";
+    $likers_response = json_decode(file_get_contents($likers_url), true);
+    $likers_data = $likers_response['response'] ?? [];
+} else {
+    $likers_data = [];
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1.1.1">
     <link rel="icon" href="img/logo.png" type="image/png">
     <title>Статистика лайков</title>
 </head>
@@ -85,20 +88,31 @@ $likers_data = $likers_response['response'] ?? [];
     <div class="container">
         <h1>📊 Статистика лайков</h1>
         <div class="user-info">
-            <img src="<?php echo $user['photo_200']; ?>" alt="Аватарка" width="100">
+            <img src="<?php echo $user['photo_200']; ?>" alt="Аватар <?php echo $user['first_name']; ?>" width="100" class="profile-avatar">
             <h2><?php echo $user['first_name'] . ' ' . $user['last_name']; ?> (<?php echo $user['id']; ?>)</h2>
         </div>
 
         <h3>Люди, которые ставили лайки:</h3>
-        <ul>
-            <?php foreach ($likers_data as $liker): ?>
-                <li>
-                    <img src="<?php echo $liker['photo_50']; ?>" alt="Аватарка" width="50">
-                    <?php echo $liker['first_name'] . ' ' . $liker['last_name']; ?> (<?php echo $liker['id']; ?>)  
-                    — <strong>❤️ <?php echo $total_likes[$liker['id']]; ?></strong>
-                </li>
-            <?php endforeach; ?>
-        </ul>
+        <?php if (!empty($likers_data)): ?>
+            <ul>
+                <?php foreach ($likers_data as $liker): ?>
+                    <li>
+                        <img src="<?php echo $liker['photo_50']; ?>" 
+                             alt="Аватар <?php echo $liker['first_name']; ?>"
+                             width="50" 
+                             height="50"
+                             class="<?php echo $liker['online'] ? 'online-avatar' : 'offline-avatar'; ?>"
+                             onerror="this.src='img/default_avatar.png'">
+                        <a href="profile.php?id=<?php echo $liker['id']; ?>">
+                            <?php echo $liker['first_name'] . ' ' . $liker['last_name']; ?>
+                        </a> (<?php echo $liker['id']; ?>)
+                        — <strong>❤️ <?php echo $total_likes[$liker['id']] ?? 0; ?></strong>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        <?php else: ?>
+            <p>Нет данных о лайках</p>
+        <?php endif; ?>
 
         <h3>📌 Общая статистика:</h3>
         <p>❤️ Лайков на постах: <strong><?php echo $total_wall_likes; ?></strong></p>
