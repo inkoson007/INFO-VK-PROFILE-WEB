@@ -242,6 +242,9 @@ try {
             <button onclick="window.location.href='possibly_chatted.php?id=<?php echo $vk_id; ?>'">
                 💬 Возможное общение
             </button>
+             <button onclick="window.location.href='friends_statistics.php?id=<?php echo $vk_id; ?>'">
+                📊 Статистика друзей
+            </button>
             <button onclick="window.location.href='https://vk.com/id<?php echo $vk_id; ?>'" class="vk-button">
                 🔗 Профиль VK
             </button>
