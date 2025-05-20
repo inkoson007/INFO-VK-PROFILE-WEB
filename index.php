@@ -33,10 +33,10 @@
     </div>
    
     <div class="container fade-in delay-1">
-        <h2>Обновление <span class="rainbow-text">V1.0</span></h2>
+        <h2>Обновление <span class="rainbow-text">V1.2</span></h2>
         <div class="update-block">
             <ul>
-                <li>Глобальное улучшение дизайна и функционала</li>
+                <li>Добавили подсчет дней с последнего онлайна</li>
             </ul>
         </div>
     </div>

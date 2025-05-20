@@ -3,6 +3,23 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+// Функция для склонения существительных
+function getNounPluralForm($number, $one, $two, $five) {
+    $number = abs($number);
+    $number %= 100;
+    if ($number >= 5 && $number <= 20) {
+        return $five;
+    }
+    $number %= 10;
+    if ($number == 1) {
+        return $one;
+    }
+    if ($number >= 2 && $number <= 4) {
+        return $two;
+    }
+    return $five;
+}
+
 // profile.php - Страница профиля с улучшенной обработкой ошибок
 if (!isset($_GET['id'])) {
     header("Location: error.php?message=" . urlencode("Не указан ID пользователя"));
@@ -77,7 +94,23 @@ try {
     $online_text = $is_online ? '<span class="status online">🟢 В сети</span>' : '<span class="status offline">⚫ Офлайн</span>';
     $time_ago = $last_seen_time ? time() - $last_seen_time : null;
     $last_seen_formatted = $last_seen_time ? date("d.m.Y H:i", $last_seen_time) : "Неизвестно";
-    $time_ago_text = $time_ago ? gmdate("H часов i минут", $time_ago) . " назад" : "Неизвестно";
+    
+    // Добавляем расчет дней с последнего онлайна
+    $days_ago = $time_ago ? floor($time_ago / (60 * 60 * 24)) : 0;
+    $hours_ago = $time_ago ? floor(($time_ago % (60 * 60 * 24)) / (60 * 60)) : 0;
+    $minutes_ago = $time_ago ? floor(($time_ago % (60 * 60)) / 60) : 0;
+    
+    $time_ago_text = "";
+    if ($days_ago > 0) {
+        $time_ago_text .= $days_ago . " " . getNounPluralForm($days_ago, 'день', 'дня', 'дней') . " ";
+    }
+    if ($hours_ago > 0) {
+        $time_ago_text .= $hours_ago . " " . getNounPluralForm($hours_ago, 'час', 'часа', 'часов') . " ";
+    }
+    if ($minutes_ago > 0 || ($days_ago == 0 && $hours_ago == 0)) {
+        $time_ago_text .= $minutes_ago . " " . getNounPluralForm($minutes_ago, 'минуту', 'минуты', 'минут');
+    }
+    $time_ago_text .= " назад";
 
     $sex_map = [0 => 'Не указан', 1 => 'Женский', 2 => 'Мужской'];
     $user_sex = $sex_map[$user['sex']] ?? 'Неизвестно';
@@ -129,7 +162,7 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Профиль <?php echo htmlspecialchars($user['first_name']) . ' ' . htmlspecialchars($user['last_name']); ?> | VK Шпион</title>
+    <title>Профиль <?php echo htmlspecialchars($user['first_name'] . ' ' . $user['last_name']); ?> | VK Шпион</title>
     <link rel="stylesheet" href="styles.css?v=1.1.1">
     <link rel="icon" href="img/logo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
