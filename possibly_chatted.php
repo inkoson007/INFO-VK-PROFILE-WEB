@@ -64,7 +64,7 @@ foreach ($friends as $friend) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Возможные собеседники</title>
-    <link rel="stylesheet" href="styles.css?v=1.1.1">
+    <link rel="stylesheet" href="styles.css?v=1.1.6">
     <link rel="icon" href="img/logo.png" type="image/png">
 </head>
 <body>

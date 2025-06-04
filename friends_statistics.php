@@ -199,7 +199,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Статистика друзей</title>
-    <link rel="stylesheet" href="styles.css?v=1.1.1">
+    <link rel="stylesheet" href="styles.css?v=1.1.6">
     <link rel="icon" href="img/logo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -208,20 +208,24 @@ try {
         <h1>Статистика друзей</h1>
         <p>Пользователь: <?php echo htmlspecialchars($user['first_name'].' '.$user['last_name']); ?> [<?php echo $vk_id; ?>]</p>
         
-        <div class="stats">
-            <div class="stat-item stat-current">
-                <strong>Текущих друзей:</strong> <?php echo $stats['current_count']; ?>
-            </div>
-            <div class="stat-item stat-removed">
-                <strong>Удаленных друзей:</strong> <?php echo $stats['removed_count']; ?>
-            </div>
-            <div class="stat-item stat-added">
-                <strong>Добавлено за 24ч:</strong> <?php echo $stats['added_24h']; ?>
-            </div>
-            <div class="stat-item stat-deleted">
-                <strong>Удалено за 24ч:</strong> <?php echo $stats['removed_24h']; ?>
-            </div>
-        </div>
+       <div class="stats">
+       <div class="stats-card stat-current">
+        <div class="stats-value"><?php echo $stats['current_count']; ?></div>
+       <div class="stats-label">Текущих друзей</div>
+     </div>
+       <div class="stats-card stat-removed">
+       <div class="stats-value"><?php echo $stats['removed_count']; ?></div>
+       <div class="stats-label">Удаленных друзей</div>
+    </div>
+       <div class="stats-card stat-added">
+       <div class="stats-value"><?php echo $stats['added_24h']; ?></div>
+       <div class="stats-label">Добавлено за 24ч</div>
+    </div>
+      <div class="stats-card stat-deleted">
+      <div class="stats-value"><?php echo $stats['removed_24h']; ?></div>
+      <div class="stats-label">Удалено за 24ч</div>
+    </div>
+</div>
 
         <p>Последнее обновление: <?php echo $current_time; ?></p>
 

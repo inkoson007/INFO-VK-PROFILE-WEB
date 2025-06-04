@@ -527,3 +527,99 @@ li::selection {
   background: #00bcd4;
   color: white;
 }
+
+/* Обновленные стили для чисел в статистике */
+.stats-value {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 10px 0;
+  background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block; /* Добавляем для корректного отображения градиента */
+  min-width: 60px; /* Чтобы числа не "прыгали" при изменении */
+}
+
+/* Стили для аватарок в списке друзей */
+.friend-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Аватарки для текущих друзей (зеленая рамка) */
+.online-avatar {
+  border-color: #00e676 !important;
+  box-shadow: 0 0 0 2px rgba(0, 230, 118, 0.5);
+}
+
+/* Аватарки для удаленных друзей (серая рамка) */
+.offline-avatar {
+  border-color: #b0bec5 !important;
+  box-shadow: 0 0 0 2px rgba(176, 190, 197, 0.3);
+}
+
+/* Эффект при наведении на аватар */
+.friend-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Дополнительные стили для статусов */
+.status-current {
+  color: #00e676;
+  background: rgba(0, 230, 118, 0.1);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+
+.status-removed {
+  color: #b0bec5;
+  background: rgba(176, 190, 197, 0.1);
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+}
+
+/* Стили для элементов списка друзей */
+.friend-item {
+  background: rgba(255, 255, 255, 0.05);
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: var(--transition);
+}
+
+.friend-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+
+.friend-name.current {
+  color: #00e676;
+}
+
+.friend-name.removed {
+  color: #b0bec5;
+}
+
+.friend-meta {
+  display: flex;
+  gap: 10px;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 5px;
+}
+
+.friend-date {
+  color: rgba(255, 255, 255, 0.5);
+}

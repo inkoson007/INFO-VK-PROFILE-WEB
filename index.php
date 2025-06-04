@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VK Шпион</title>
-    <link rel="stylesheet" href="styles.css?v=1.1.1">
+    <link rel="stylesheet" href="styles.css?v=1.1.6">
     <link rel="icon" href="img/logo.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
@@ -33,10 +33,10 @@
     </div>
    
     <div class="container fade-in delay-1">
-        <h2>Обновление <span class="rainbow-text">V1.2</span></h2>
+        <h2>Обновление <span class="rainbow-text">V1.2.1</span></h2>
         <div class="update-block">
             <ul>
-                <li>Добавили подсчет дней с последнего онлайна</li>
+                <li>Улучшение в css</li>
             </ul>
         </div>
     </div>

@@ -46,7 +46,7 @@ $cpu_usage = $load[0] . ' (за 1 мин)';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css?v=1.1.1">
+    <link rel="stylesheet" href="styles.css?v=1.1.6">
     <link rel="icon" href="img/logo.png" type="image/png">
     <title>Отладка токена</title>
 </head>
