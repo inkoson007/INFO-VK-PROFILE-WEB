@@ -96,21 +96,38 @@ try {
     $last_seen_formatted = $last_seen_time ? date("d.m.Y H:i", $last_seen_time) : "Неизвестно";
     
     // Добавляем расчет дней с последнего онлайна
-    $days_ago = $time_ago ? floor($time_ago / (60 * 60 * 24)) : 0;
-    $hours_ago = $time_ago ? floor(($time_ago % (60 * 60 * 24)) / (60 * 60)) : 0;
-    $minutes_ago = $time_ago ? floor(($time_ago % (60 * 60)) / 60) : 0;
-    
     $time_ago_text = "";
-    if ($days_ago > 0) {
-        $time_ago_text .= $days_ago . " " . getNounPluralForm($days_ago, 'день', 'дня', 'дней') . " ";
+    if ($time_ago) {
+        $years = floor($time_ago / (60 * 60 * 24 * 365));
+        $months = floor(($time_ago % (60 * 60 * 24 * 365)) / (60 * 60 * 24 * 30));
+        $weeks = floor(($time_ago % (60 * 60 * 24 * 30)) / (60 * 60 * 24 * 7));
+        $days = floor(($time_ago % (60 * 60 * 24 * 7)) / (60 * 60 * 24));
+        $hours = floor(($time_ago % (60 * 60 * 24)) / (60 * 60));
+        $minutes = floor(($time_ago % (60 * 60)) / 60);
+        
+        if ($years > 0) {
+            $time_ago_text .= $years . " " . getNounPluralForm($years, 'год', 'года', 'лет') . " ";
+        }
+        if ($months > 0 && $years < 2) {
+            $time_ago_text .= floor($months) . " " . getNounPluralForm($months, 'месяц', 'месяца', 'месяцев') . " ";
+        }
+        if ($weeks > 0 && $years == 0 && $months < 2) {
+            $time_ago_text .= $weeks . " " . getNounPluralForm($weeks, 'неделю', 'недели', 'недель') . " ";
+        }
+        if ($days > 0 && $years == 0 && $months == 0) {
+            $time_ago_text .= $days . " " . getNounPluralForm($days, 'день', 'дня', 'дней') . " ";
+        }
+        if ($hours > 0 && $years == 0 && $months == 0 && $days < 2) {
+            $time_ago_text .= $hours . " " . getNounPluralForm($hours, 'час', 'часа', 'часов') . " ";
+        }
+        if ($minutes > 0 && $years == 0 && $months == 0 && $days == 0 && $hours < 2) {
+            $time_ago_text .= $minutes . " " . getNounPluralForm($minutes, 'минуту', 'минуты', 'минут');
+        }
+        
+        $time_ago_text .= " назад";
+    } else {
+        $time_ago_text = "Неизвестно";
     }
-    if ($hours_ago > 0) {
-        $time_ago_text .= $hours_ago . " " . getNounPluralForm($hours_ago, 'час', 'часа', 'часов') . " ";
-    }
-    if ($minutes_ago > 0 || ($days_ago == 0 && $hours_ago == 0)) {
-        $time_ago_text .= $minutes_ago . " " . getNounPluralForm($minutes_ago, 'минуту', 'минуты', 'минут');
-    }
-    $time_ago_text .= " назад";
 
     $sex_map = [0 => 'Не указан', 1 => 'Женский', 2 => 'Мужской'];
     $user_sex = $sex_map[$user['sex']] ?? 'Неизвестно';
@@ -136,20 +153,47 @@ try {
     $bdate = $user['bdate'] ?? null;
     $birth_with_age = "Не указана";
 
-    if ($bdate) {
-        try {
-            if (preg_match('/^\d{1,2}\.\d{1,2}\.\d{4}$/', $bdate)) {
-                $birthDate = DateTime::createFromFormat('d.m.Y', $bdate);
-                $today = new DateTime('today');
-                $age = $birthDate->diff($today)->y;
-                $birth_with_age = $bdate . " <span class='age-badge'>[{$age} лет]</span>";
-            } else {
-                $birth_with_age = $bdate . " <span class='age-badge'>[Год не указан]</span>";
-            }
-        } catch (Exception $e) {
-            $birth_with_age = $bdate . " [Ошибка формата]";
+   if ($bdate) {
+    try {
+        // Массив названий месяцев
+        $months = [
+            1 => 'января', 2 => 'февраля', 3 => 'марта', 
+            4 => 'апреля', 5 => 'мая', 6 => 'июня',
+            7 => 'июля', 8 => 'августа', 9 => 'сентября',
+            10 => 'октября', 11 => 'ноября', 12 => 'декабря'
+        ];
+        
+        // Проверяем разные форматы даты
+        if (preg_match('/^(\d{1,2})\.(\d{1,2})\.(\d{4})$/', $bdate, $matches)) {
+            // Формат с годом: дд.мм.гггг
+            $day = str_pad($matches[1], 2, '0', STR_PAD_LEFT);
+            $month = (int)$matches[2];
+            $year = $matches[3];
+            
+            $month_name = $months[$month] ?? 'неизвестного месяца';
+            $formatted_date = "$day $month_name $year год";
+            
+            // Рассчитываем возраст
+            $birthDate = DateTime::createFromFormat('d.m.Y', $bdate);
+            $today = new DateTime('today');
+            $age = $birthDate->diff($today)->y;
+            
+            $birth_with_age = $formatted_date . " <span class='age-badge'>[{$age} лет]</span>";
+        } elseif (preg_match('/^(\d{1,2})\.(\d{1,2})$/', $bdate, $matches)) {
+            // Формат без года: дд.мм
+            $day = str_pad($matches[1], 2, '0', STR_PAD_LEFT);
+            $month = (int)$matches[2];
+            
+            $month_name = $months[$month] ?? 'неизвестного месяца';
+            $birth_with_age = "$day $month_name";
+        } else {
+            // Неизвестный формат - выводим как есть
+            $birth_with_age = $bdate . " <span class='age-badge'>[Год не указан]</span>";
         }
+    } catch (Exception $e) {
+        $birth_with_age = $bdate . " [Ошибка формата]";
     }
+}
 
 } catch (Exception $e) {
     // Перенаправляем на страницу ошибки с сообщением

@@ -32,14 +32,15 @@
         </div>
     </div>
    
-    <div class="container fade-in delay-1">
-        <h2>Обновление <span class="rainbow-text">V1.2.1</span></h2>
+  <div class="container fade-in delay-1">
+        <h2>Обновление <span class="rainbow-text">V1.3.0</span></h2>
         <div class="update-block">
             <ul>
-                <li>Улучшение в css</li>
+                <li>Улучшение в отоброжении даты онлайна</li>
+                <li>Улучшение в отоброжении даты рождения</li>
             </ul>
         </div>
-    </div>
+</div>
     
     <script>
         function searchProfile() {
